@@ -17,7 +17,15 @@ def draw():
     bee.draw()
     flower.draw()
     screen.draw.text("Score = "+str(score) ,color="black",fontsize=50, topleft=(30,50))
-    screen.draw.text
+    if over:
+        screen.blit("gover.jpg", (0,0))
+        screen.draw.text("Final Score = "+str(score) ,color="white",fontsize=50, center=(600,350))
+
+    #screen.draw.text
+
+def time_up():
+    global over
+    over = True
 
 def flower_pos():
     flower.x = random.randint(70, WIDTH - 70)
@@ -39,5 +47,6 @@ def update():
     if flowers_collected:
         score += 1
         flower_pos()
+clock.schedule(time_up,25.0)
 
 pgzrun.go()
