@@ -42,7 +42,7 @@ def draw():
         screen.draw.text("Good Job",(50,150),fontsize=40,color="black")
         screen.draw.text(str(round(total_time,1)),(100,300),fontsize=30,color="black")
 
-def on_mouse_down():
+def on_mouse_down(pos):
     global Next_Satelite, lines
     if Next_Satelite < num_satelites:
         if satelites[Next_Satelite].collidepoint(pos):
