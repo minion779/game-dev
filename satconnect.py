@@ -18,8 +18,8 @@ num_satelites = 8
 def create_satelites():
     global start_time
     for i in range(0,num_satelites):
-        satelite = Actor("sateltite.png")
-        satelites.pos = (randint(40, WIDTH-40)), (randint(40, HEIGHT-40))
+        satelite = Actor("satelite.png")
+        satelite.pos = (randint(40, WIDTH-40)), (randint(40, HEIGHT-40))
         satelites.append(satelite)
     start_time = time()
 
@@ -32,7 +32,7 @@ def draw():
         satelite.draw()
         numbers += 1
     for line in lines: 
-        screen.draw.line(line[0], line[1], ("yellow"))
+        screen.draw.line(line[0], line[1], "yellow")
     
     if Next_Satelite < num_satelites:
         total_time = time() - start_time
@@ -41,6 +41,17 @@ def draw():
         screen.blit("leaves.jpg",(0,0))
         screen.draw.text("Good Job",(50,150),fontsize=40,color="black")
         screen.draw.text(str(round(total_time,1)),(100,300),fontsize=30,color="black")
+
+def on_mouse_down():
+    global Next_Satelite, lines
+    if Next_Satelite < num_satelites:
+        if satelites[Next_Satelite].collidepoint(pos):
+            if Next_Satelite:
+                lines.append((satelites[Next_Satelite-1].pos, satelites[Next_Satelite].pos))
+            Next_Satelite += 1
+        else:
+            lines = []
+            Next_Satelite = 0
 
 def update():
     pass
