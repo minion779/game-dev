@@ -37,9 +37,58 @@ def update():
         items = make_items(current_level)
 
 def make_items(extra_items):
-    items_to_create = get_options_tocreate(extra_items)
-    mew_items = create_items(items_to_create)
+    items_to_create = get_option_to_create(extra_items)
+    new_items = create_items(items_to_create)
     layout_items(new_items)
     animate_items(new_items)
     return new_items
+
+def get_option_to_create(extra_items):
+    items_to_create = ("box")
+    for i in range(extra_items):
+        selected_items = random.choice(ITEMS)
+        items_to_create.append(selected_items)
+    return items_to_create  
+
+def create_items(items_to_create):
+    new_items = []
+    for options in items_to_create:
+        item = Actor(options +  "img")
+        new_items.append(item)
+    return new_items
+
+def layout_items(item_to_layout):
+    number_of_gaps = len(item_to_layout) + 1
+    gap_size = WIDTH/number_of_gaps
+    random.shuffle(item_to_layout)
+    for index, item in enumerate(item_to_layout):
+        new_x_pos = (index + 1)
+        item.x = new_x_pos
+
+def animate_items(items_to_animate):
+    global animations
+    for item in items_to_animate:
+        duration = start_speed - current_level
+        item.anchor("center, bottom")
+        animation = animate(item, duration = duration, on_finished = handle_game_over)
+        animations.append(animation)
+
+def handle_game_over():
+    global game_over
+    game_over = True
+
+def on_mouse_down(pos):
+    global  items, current_level
+    for item in items:
+        if item.collide_point(pos):
+            if "box" in item.image:
+                handle_game_complete()
+            else: 
+                handle_game_over()
+
+        
+
+
 pgzrun.go()
+
+
