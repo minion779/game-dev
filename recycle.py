@@ -86,6 +86,27 @@ def on_mouse_down(pos):
             else: 
                 handle_game_over()
 
+def handle_game_complete():
+    global current_level, items, animations, game_complete
+    stop_animation(animations)
+    if current_level == final_level:
+        game_complete = True
+    else:
+        current_level += 1
+        items = []
+        animations = []
+
+def stop_animation(animation_to_stop):
+    for animation in animation_to_stop:
+        if animation.running:
+            animation.stop()
+        
+def display_message(heading_text, sub_heading_text):
+    screen.draw.text(heading_text, fontsize = 90, center = (centre_x, y + 50), color = "red")
+    screen.draw.text(sub_heading_text, fontsize = 65, center = (centre_x, y + 150), color = "red")
+
+
+
         
 
 
