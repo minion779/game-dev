@@ -70,7 +70,7 @@ def animate_items(items_to_animate):
     for item in items_to_animate:
         duration = start_speed - current_level
         item.anchor = ("center", "bottom")
-        animation = animate(item, duration = duration, on_finished = handle_game_over)
+        animation = animate(item, duration = duration, on_finished = handle_game_over, y = HEIGHT)
         animations.append(animation)
 
 def handle_game_over():
@@ -111,7 +111,5 @@ def display_message(heading_text, sub_heading_text):
 
 
 pgzrun.go()
-
-
 
 
