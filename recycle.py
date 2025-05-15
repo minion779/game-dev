@@ -10,7 +10,7 @@ centre = (centre_x,y)
 font_colour = (255,255,255)
 final_level = 6
 start_speed = 10
-ITEMS = ["Plastic bag", "Battery 1","Battery 2", "Cup","Jar","Chips","Coffee mug"]
+ITEMS = ["plasticbag", "battery1","battery2", "cup","jar","chips","coffeemug"]
 game_over = False
 game_complete = False
 current_level = 1
@@ -44,7 +44,7 @@ def make_items(extra_items):
     return new_items
 
 def get_option_to_create(extra_items):
-    items_to_create = ("box")
+    items_to_create = ["box"]
     for i in range(extra_items):
         selected_items = random.choice(ITEMS)
         items_to_create.append(selected_items)
@@ -62,14 +62,14 @@ def layout_items(item_to_layout):
     gap_size = WIDTH/number_of_gaps
     random.shuffle(item_to_layout)
     for index, item in enumerate(item_to_layout):
-        new_x_pos = (index + 1)
+        new_x_pos = (index + 1) * gap_size
         item.x = new_x_pos
 
 def animate_items(items_to_animate):
     global animations
     for item in items_to_animate:
         duration = start_speed - current_level
-        item.anchor("center, bottom")
+        item.anchor = ("center", "bottom")
         animation = animate(item, duration = duration, on_finished = handle_game_over)
         animations.append(animation)
 
@@ -80,7 +80,7 @@ def handle_game_over():
 def on_mouse_down(pos):
     global  items, current_level
     for item in items:
-        if item.collide_point(pos):
+        if item.collidepoint(pos):
             if "box" in item.image:
                 handle_game_complete()
             else: 
@@ -111,5 +111,7 @@ def display_message(heading_text, sub_heading_text):
 
 
 pgzrun.go()
+
+
 
 
