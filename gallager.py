@@ -37,10 +37,25 @@ def update():
         Ship.x -= speed_s
         if Ship.x <= 0:
             Ship.x  =  0
-    if keyboard.right:
+    elif keyboard.right:
         Ship.x += speed_s
         if Ship.x >= WIDTH:
             Ship.x = WIDTH
+    for bullet in bullets:
+        if bullet.y <= 0:
+            bullets.remove(bullet)
+        else:
+            bullet.y -= 10
+    for enemy in enemies:
+        enemy.y += 5
+        if enemy.y >= HEIGHT:
+            enemy.y = -100
+            enemy.x = random.randint(50, WIDTH - 50)
+        for bullet in bullets:
+            if enemy.colliderect(bullet):
+                score += 100
+                bullets.remove(bullet)
+                enemies.remove(enemy)
 
 def draw():
     screen.clear()
