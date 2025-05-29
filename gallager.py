@@ -27,17 +27,17 @@ def display_score():
 
 def on_key_down(key):
     if key == keys.SPACE:
-        bullets.append(Actor("bullet"))
+        bullets.append(Actor("laser.png"))
         bullets[-1].x = Ship.x
         bullets[-1].y = Ship.y - 50
 
 def update():
     global score
-    if keyboard.left:
+    if keyboard.a:
         Ship.x -= speed_s
         if Ship.x <= 0:
             Ship.x  =  0
-    elif keyboard.right:
+    elif keyboard.d:
         Ship.x += speed_s
         if Ship.x >= WIDTH:
             Ship.x = WIDTH
@@ -56,6 +56,11 @@ def update():
                 score += 100
                 bullets.remove(bullet)
                 enemies.remove(enemy)
+                
+                new_bug = Actor("bug")
+                new_bug.x = random.randint(50, WIDTH - 50)
+                new_bug.y = random.randint(-100, -50)
+                enemies.append(new_bug)
 
 def draw():
     screen.clear()
